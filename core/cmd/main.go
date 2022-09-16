@@ -16,6 +16,7 @@ func displaySocks() error {
 	fmt.Println(`1 - socks`, len(socks))
 
 	for _, e := range socks {
+		_ = e
 		fmt.Printf("cc-> %v %v\n", e.LocalAddr.Port, e.Process.String())
 	}
 
@@ -26,11 +27,13 @@ func displaySocks() error {
 	}
 	fmt.Println(`2 - socks`, len(socks))
 
-	/*
-		for _, e := range socks {
-			fmt.Printf("bb-> %v\n", e.LocalAddr.Port)
+	for _, e := range socks {
+
+		if e.Process != nil {
+			fmt.Printf("bb-> -> %v %v %v\n", e.LocalAddr.Port, e.Process.Pid, e.Process.Name)
 		}
-	*/
+
+	}
 
 	// get only listening TCP sockets
 	tabs, err := netstat.TCPSocks(func(s *netstat.SockTabEntry) bool {
