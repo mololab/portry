@@ -1,4 +1,4 @@
-module changeme
+module github.com/mololab/portry
 
 go 1.17
 

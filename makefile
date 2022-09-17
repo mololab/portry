@@ -1,0 +1,2 @@
+run: 
+	wails dev

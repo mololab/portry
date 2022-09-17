@@ -20,9 +20,10 @@ func main() {
 		Width:            900,
 		Height:           600,
 		Assets:           assets,
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 1},
 		OnStartup:        app.startup,
 		OnShutdown:       app.shutdown,
+		AlwaysOnTop:      true,
 		Bind: []interface{}{
 			app,
 		},
