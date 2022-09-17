@@ -10,6 +10,14 @@
     src: local("Nunito-Regular"), url("./fonts/Nunito-Regular.ttf") format("opentype");
 }
 
+@font-face {
+    font-family: "NunitoExtraBold";
+    src: local("Nunito-ExtraBold"), url("./fonts/Nunito-ExtraBold.ttf") format("opentype");
+}
+
+
+
+
 html {
     background-color: #f5f3f5;
 }

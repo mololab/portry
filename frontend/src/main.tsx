@@ -4,6 +4,7 @@ import ScanPage from "./components/pages/scan/scan";
 import WelcomePage from "./components/pages/welcome/welcome";
 import "./style.css";
 import "./css/common.css";
+import "./css/welcome.css";
 
 const rootElement = document.getElementById("root");
 render(
