@@ -14,7 +14,7 @@ export default class WelcomePage extends React.Component<
   render() {
     return (
       <>
-        <div className="welcome-container">
+        <div className="welcomepage-container">
           <div className="welcoming-container">
             <span>hi, welcome to</span>
             <span>portry</span>

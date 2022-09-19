@@ -5,6 +5,7 @@ import WelcomePage from "./components/pages/welcome/welcome";
 import "./style.css";
 import "./css/common.css";
 import "./css/welcome.css";
+import "./css/scan.css";
 
 const rootElement = document.getElementById("root");
 render(

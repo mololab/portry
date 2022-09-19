@@ -17,8 +17,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:            "portry",
-		Width:            900,
-		Height:           600,
+		Width:            1050,
+		Height:           730,
 		Assets:           assets,
 		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 1},
 		OnStartup:        app.startup,
