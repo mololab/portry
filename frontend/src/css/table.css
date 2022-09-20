@@ -1,0 +1,29 @@
+.table-data-container .title-container {
+    display: flex;
+    flex-direction: row;
+    /* background-color: rgb(148, 46, 46); */
+}
+
+.table-data-container .title-container span {
+    flex-basis: 100%;
+    text-align: center;
+    opacity: 80%;
+    font-family: NunitoRegular;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.table-data-container .contents-container .row {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-data-container .contents-container .row:nth-child(odd) {
+    background-color: #f9f9fa;
+}
+
+.table-data-container .contents-container .row span {
+    flex-basis: 100%;
+    text-align: center;
+    font-family: NunitoRegular;
+}

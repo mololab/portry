@@ -4,6 +4,7 @@ import LiveReloadOffSVG from "../../../assets/svg/live-reload-off.svg";
 import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
+import CustomTable from "../../table";
 
 interface ScanPageProps {}
 
@@ -81,7 +82,7 @@ export default class ScanPage extends React.Component<
 
             <div className="tables-container">
               <div className="table-container">
-                <span>table container</span>
+                <CustomTable />
               </div>
 
               <div className="hided-table-container">
