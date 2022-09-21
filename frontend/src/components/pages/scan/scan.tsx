@@ -58,20 +58,36 @@ export default class ScanPage extends React.Component<
                 className="live-reload-container clickable"
               >
                 {live_reload ? (
-                  <img src={LiveReloadOnSVG} alt="Live Reload On icon" />
+                  <img
+                    className="clickable-icon"
+                    src={LiveReloadOnSVG}
+                    alt="Live Reload On icon"
+                  />
                 ) : (
-                  <img src={LiveReloadOffSVG} alt="Live Reload Off icon" />
+                  <img
+                    className="clickable-icon"
+                    src={LiveReloadOffSVG}
+                    alt="Live Reload Off icon"
+                  />
                 )}
               </div>
 
               {/* filter */}
               <div className="filter-container clickable">
-                <img src={FilterSVG} alt="Filter icon" />
+                <img
+                  className="clickable-icon"
+                  src={FilterSVG}
+                  alt="Filter icon"
+                />
               </div>
 
               {/* refresh */}
               <div className="refresh-container clickable">
-                <img src={RefreshSVG} alt="Refresh icon" />
+                <img
+                  className="clickable-icon"
+                  src={RefreshSVG}
+                  alt="Refresh icon"
+                />
               </div>
 
               {/* table-info */}

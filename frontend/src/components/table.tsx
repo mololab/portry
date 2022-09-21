@@ -1,5 +1,11 @@
 import React from "react";
 import { Column, PortInfo } from "./types";
+import EyeONSVG from "../assets/svg/eye-on.svg";
+import EyeOFFSVG from "../assets/svg/eye.svg";
+import MoreSVG from "../assets/svg/more.svg";
+import XSVG from "../assets/svg/x.svg";
+
+import { Header, Button, Popup, Grid } from "semantic-ui-react";
 
 interface CustomTableProps {}
 
@@ -21,7 +27,6 @@ export default class CustomTable extends React.Component<
         { name: "Process ID", visible: true },
         { name: "Process Name", visible: true },
         { name: "Socket Type", visible: true },
-        { name: "", visible: true },
       ],
       data: [
         {
@@ -56,17 +61,64 @@ export default class CustomTable extends React.Component<
             {columns.map((column) => (
               <span>{column.name}</span>
             ))}
+            <span></span>
           </div>
 
           <div className="contents-container">
             {data.map((singleData) => {
               return (
                 <div className="row">
-                  <span>{singleData.port}</span>
-                  <span>{singleData.process_id}</span>
-                  <span>{singleData.process_name}</span>
-                  <span>{singleData.socket_type}</span>
-                  <span>{String(singleData.controllers.hided)}</span>
+                  <>
+                    {Object.keys(singleData).map((key) => {
+                      let columnData = (singleData as any)[key];
+                      if (typeof columnData == "string") {
+                        return <span>{columnData}</span>;
+                      }
+                    })}
+
+                    <span>
+                      <div className="row-controller">
+                        <div className="hide-status">
+                          {singleData.controllers.hided == true ? (
+                            <img
+                              className="clickable-icon"
+                              src={EyeOFFSVG}
+                              alt="Shown"
+                            />
+                          ) : (
+                            <img
+                              className="clickable-icon"
+                              src={EyeONSVG}
+                              alt="Hidden"
+                            />
+                          )}
+                        </div>
+
+                        <div className="more-container">
+                          <Popup
+                            trigger={
+                              <img
+                                className="clickable-icon"
+                                src={MoreSVG}
+                                alt="More icon"
+                              />
+                            }
+                            flowing
+                            on="click"
+                            position="left center"
+                            // open={undefined} // false // true
+                          >
+                            <div className="more-container-popup">
+                              <div className="popup-element kill-element">
+                                <img src={XSVG} alt="Kill process" />
+                                <span>Kill</span>
+                              </div>
+                            </div>
+                          </Popup>
+                        </div>
+                      </div>
+                    </span>
+                  </>
                 </div>
               );
             })}

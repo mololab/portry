@@ -5,9 +5,9 @@ export interface Column {
 
 export interface PortInfo {
   port: string;
-  process_id: string;
-  process_name: string;
-  socket_type: string;
+  process_id?: string;
+  process_name?: string;
+  socket_type?: string;
   controllers: {
     hided: boolean;
   };
