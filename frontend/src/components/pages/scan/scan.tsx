@@ -5,6 +5,7 @@ import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CustomTable from "../../table";
+import { Popup } from "semantic-ui-react";
 
 interface ScanPageProps {}
 
@@ -73,13 +74,21 @@ export default class ScanPage extends React.Component<
               </div>
 
               {/* filter */}
-              <div className="filter-container clickable">
-                <img
-                  className="clickable-icon"
-                  src={FilterSVG}
-                  alt="Filter icon"
-                />
-              </div>
+              <Popup
+                trigger={
+                  <div className="filter-container clickable">
+                    <img
+                      className="clickable-icon"
+                      src={FilterSVG}
+                      alt="Filter icon"
+                    />
+                  </div>
+                }
+                flowing
+                on="click"
+                position="right center"
+                // open={undefined} // false // true
+              >sadsad</Popup>
 
               {/* refresh */}
               <div className="refresh-container clickable">

@@ -4,8 +4,7 @@ import EyeONSVG from "../assets/svg/eye-on.svg";
 import EyeOFFSVG from "../assets/svg/eye.svg";
 import MoreSVG from "../assets/svg/more.svg";
 import XSVG from "../assets/svg/x.svg";
-
-import { Header, Button, Popup, Grid } from "semantic-ui-react";
+import { Popup } from "semantic-ui-react";
 
 interface CustomTableProps {}
 
