@@ -5,7 +5,7 @@ import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CustomTable from "../../table";
-import { Popup, Checkbox, Segment } from "semantic-ui-react";
+import { Popup } from "semantic-ui-react";
 
 interface ScanPageProps {}
 

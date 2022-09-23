@@ -107,7 +107,7 @@
     display: flex;
     flex-direction: column;
     font-family: NunitoRegular;
-    margin: 20px 0px;
+    margin-top: 30px;
 }
 
 .filter-container-popup .column-filter-container * {
@@ -123,6 +123,7 @@
 .filter-container-popup .column-filter-container div label {
     margin-left: 8px;
     font-size: 15px;
+    color: #52575c;
 }
 
 .filter-container-popup .actions {
@@ -131,9 +132,34 @@
 }
 
 .filter-container-popup .actions .cancel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-container-popup .actions .cancel-button span {
+    font-family: NunitoRegular;
+}
+
+.filter-container-popup .actions .cancel-button:hover span {
+    text-decoration: underline;
 }
 
 .filter-container-popup .actions .apply-button {
+    margin-left: 15px;
+    background-color: #53dd6c;
+    padding: 10px 40px;
+    border-radius: 16px;
+    transition: 0.2s;
+}
+
+.filter-container-popup .actions .apply-button:hover {
+    background-color: #53dd6ccb;
+}
+
+.filter-container-popup .actions .apply-button span {
+    color: #f5f3f5;
+    font-family: NunitoRegular;
 }
 
 .controller-container .refresh-container {
