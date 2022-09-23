@@ -112,12 +112,28 @@
 
 .filter-container-popup .column-filter-container * {
     box-sizing: inherit;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .filter-container-popup .column-filter-container *:before,
 .filter-container-popup .column-filter-container *:after {
     box-sizing: inherit;
+}
+
+.filter-container-popup .column-filter-container div label {
+    margin-left: 8px;
+    font-size: 15px;
+}
+
+.filter-container-popup .actions {
+    display: flex;
+    justify-content: end;
+}
+
+.filter-container-popup .actions .cancel-button {
+}
+
+.filter-container-popup .actions .apply-button {
 }
 
 .controller-container .refresh-container {

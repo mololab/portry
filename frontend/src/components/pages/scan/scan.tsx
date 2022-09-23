@@ -90,6 +90,7 @@ export default class ScanPage extends React.Component<
                 // open={undefined} // false // true
               >
                 <div className="filter-container-popup">
+                  {/* start/end port */}
                   <div className="port-filter-container">
                     <span>Port</span>
                     <div className="port-number-input-container">
@@ -104,6 +105,8 @@ export default class ScanPage extends React.Component<
                       />
                     </div>
                   </div>
+
+                  {/* visible columns */}
                   <div className="column-filter-container">
                     <div>
                       <input id="column-port" type="checkbox" />
@@ -125,9 +128,16 @@ export default class ScanPage extends React.Component<
                       <label htmlFor="column-sockettype">Socket Type</label>
                     </div>
                   </div>
+
+                  {/* apply/cancel actions */}
                   <div className="actions">
-                    <button>Cancel</button>
-                    <button>Apply</button>
+                    <div className="cancel-button clickable">
+                      <span>Cancel</span>
+                    </div>
+
+                    <div className="apply-button clickable">
+                      <span>Apply</span>
+                    </div>
                   </div>
                 </div>
               </Popup>
