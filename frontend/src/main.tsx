@@ -7,6 +7,7 @@ import "./css/common.css";
 import "./css/welcome.css";
 import "./css/scan.css";
 import "./css/table.css";
+import "./css/checkbox.css";
 
 const rootElement = document.getElementById("root");
 render(

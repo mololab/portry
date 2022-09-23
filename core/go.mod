@@ -1,4 +1,4 @@
-module github.com/mololab/portry
+module github.com/mololab/portry/core
 
 go 1.18
 

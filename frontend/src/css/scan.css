@@ -67,6 +67,59 @@
     margin-top: 3px;
 }
 
+.filter-container-popup {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 1px 1px 6px #697bff3a;
+}
+
+.filter-container-popup .port-filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.filter-container-popup .port-filter-container > *:nth-child(n + 2) {
+    margin-left: 10px;
+}
+
+.filter-container-popup .port-filter-container span {
+    color: #52575c;
+    font-family: NunitoRegular;
+}
+
+.filter-container-popup .port-filter-container .port-number-input-container {
+    padding: 6px 10px;
+    border-radius: 12px;
+    background-color: #f9f9fa;
+    width: 120px;
+}
+
+.filter-container-popup .port-filter-container .port-number-input-container input {
+    border: transparent;
+    background-color: transparent;
+    outline: none;
+    font-family: NunitoRegular;
+    font-size: 15px;
+}
+
+.filter-container-popup .column-filter-container {
+    display: flex;
+    flex-direction: column;
+    font-family: NunitoRegular;
+    margin: 20px 0px;
+}
+
+.filter-container-popup .column-filter-container * {
+    box-sizing: inherit;
+    margin-bottom: 5px;
+}
+
+.filter-container-popup .column-filter-container *:before,
+.filter-container-popup .column-filter-container *:after {
+    box-sizing: inherit;
+}
+
 .controller-container .refresh-container {
     margin-left: auto;
     margin-right: 20px;
@@ -82,5 +135,3 @@
     font-size: 15px;
     font-family: NunitoRegular;
 }
-
-

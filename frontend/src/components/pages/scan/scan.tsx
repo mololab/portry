@@ -5,7 +5,7 @@ import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CustomTable from "../../table";
-import { Popup } from "semantic-ui-react";
+import { Popup, Checkbox, Segment } from "semantic-ui-react";
 
 interface ScanPageProps {}
 
@@ -86,9 +86,51 @@ export default class ScanPage extends React.Component<
                 }
                 flowing
                 on="click"
-                position="right center"
+                position="bottom right"
                 // open={undefined} // false // true
-              >sadsad</Popup>
+              >
+                <div className="filter-container-popup">
+                  <div className="port-filter-container">
+                    <span>Port</span>
+                    <div className="port-number-input-container">
+                      <input type="text" placeholder="Port number" value={0} />
+                    </div>
+                    <span>to</span>
+                    <div className="port-number-input-container">
+                      <input
+                        type="text"
+                        placeholder="Port number"
+                        value={65553}
+                      />
+                    </div>
+                  </div>
+                  <div className="column-filter-container">
+                    <div>
+                      <input id="column-port" type="checkbox" />
+                      <label htmlFor="column-port">Port</label>
+                    </div>
+
+                    <div>
+                      <input id="column-processid" type="checkbox" />
+                      <label htmlFor="column-processid">Process ID</label>
+                    </div>
+
+                    <div>
+                      <input id="column-processname" type="checkbox" />
+                      <label htmlFor="column-processname">Process Name</label>
+                    </div>
+
+                    <div>
+                      <input id="column-sockettype" type="checkbox" />
+                      <label htmlFor="column-sockettype">Socket Type</label>
+                    </div>
+                  </div>
+                  <div className="actions">
+                    <button>Cancel</button>
+                    <button>Apply</button>
+                  </div>
+                </div>
+              </Popup>
 
               {/* refresh */}
               <div className="refresh-container clickable">
