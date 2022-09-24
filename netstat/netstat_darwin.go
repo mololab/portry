@@ -47,7 +47,7 @@ type lsofEntry struct {
 }
 
 func doLsofCmd(cb func(e lsofEntry)) (err error) {
-	cmd := exec.Command("lsof", "+c", "0", "-i")
+	cmd := exec.Command("lsof", "-i", "-n")
 	outs, err := cmd.Output()
 	if err != nil {
 		return
@@ -63,9 +63,7 @@ func doLsofCmd(cb func(e lsofEntry)) (err error) {
 			err = fmt.Errorf("netstat: not enough fields: %v, %v", len(cols), cols)
 			return
 		}
-		if len(cols) < 10 {
-			continue
-		}
+
 		e.command = cols[0]
 		e.pid, err = strconv.Atoi(cols[1])
 		if err != nil {
@@ -76,6 +74,7 @@ func doLsofCmd(cb func(e lsofEntry)) (err error) {
 		// if err != nil {
 		// 	return
 		// }
+
 		e.typ = cols[4]
 		e.network = cols[7]
 		addrs := strings.SplitN(cols[8], "->", 2)
@@ -83,24 +82,31 @@ func doLsofCmd(cb func(e lsofEntry)) (err error) {
 		if err != nil {
 			continue
 		}
-		if len(addrs) >= 2 {
-			e.remote, err = parseAddr(e.typ, e.network, addrs[1])
-			if err == nil {
-				continue
+		/*
+			if len(addrs) >= 2 {
+				e.remote, err = parseAddr(e.typ, e.network, addrs[1])
+				if err == nil {
+					fmt.Println("continue 2", addrs)
+					continue
+				}
+			}
+		*/
+
+		if len(cols) >= 10 {
+			switch cols[9] {
+			case "(ESTABLISHED)":
+				e.state = Established
+			case "(CLOSED)":
+				e.state = Close
+			case "(CLOSE WAIT)":
+				e.state = CloseWait
+			case "(LISTEN)":
+				e.state = Listen
+			case "(CLOSING)":
+				e.state = Closing
 			}
 		}
-		switch cols[9] {
-		case "(ESTABLISHED)":
-			e.state = Established
-		case "(CLOSED)":
-			e.state = Close
-		case "(CLOSE WAIT)":
-			e.state = CloseWait
-		case "(LISTEN)":
-			e.state = Listen
-		case "(CLOSING)":
-			e.state = Closing
-		}
+
 		cb(e)
 	}
 	return nil
