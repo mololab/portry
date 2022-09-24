@@ -177,3 +177,102 @@
     font-size: 15px;
     font-family: NunitoRegular;
 }
+
+/* tables */
+.ports-container .tables-container .hided-table-container {
+    margin-top: 100px;
+}
+
+.ports-container .tables-container .hided-table-container .hided-title-container {
+    /* background-color: #53dd6c; */
+    padding-bottom: 20px;
+}
+
+.ports-container .tables-container .hided-table-container .hided-title-container:hover .hided-title {
+    color: rgba(82, 87, 92, 1);
+}
+
+.ports-container .tables-container .hided-table-container .hided-title-container .hided-title {
+    font-family: NunitoRegular;
+    color: rgba(82, 87, 92, 0.8);
+    margin-left: 25px;
+}
+
+.ports-container .tables-container .hided-table-container .hided-title-container .hided-title img {
+    transform: scale(1.2);
+}
+
+.ports-container .tables-container .hided-table-container .hided-table {
+    position: relative;
+}
+
+.ports-container .tables-container .hided-table-container .showing-list {
+    animation: collapseAnimationON 0.5s 1;
+    animation-direction: alternate;
+
+    -webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: forwards; /* FF 5+ */
+    -o-animation-fill-mode: forwards; /* Not implemented yet */
+    -ms-animation-fill-mode: forwards; /* IE 10+ */
+    animation-fill-mode: forwards; /* When the spec is finished */
+}
+
+@keyframes collapseAnimationON {
+    0% {
+        top: 50px;
+        opacity: 0;
+        display: none;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        top: 0px;
+        opacity: 1;
+    }
+}
+
+.ports-container .tables-container .hided-table-container .hiding-list {
+    animation: collapseAnimationOFF 0.5s 1;
+    animation-direction: alternate;
+
+    -webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: forwards; /* FF 5+ */
+    -o-animation-fill-mode: forwards; /* Not implemented yet */
+    -ms-animation-fill-mode: forwards; /* IE 10+ */
+    animation-fill-mode: forwards; /* When the spec is finished */
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+@keyframes collapseAnimationOFF {
+    0% {
+        visibility: visible;
+        display: block;
+        top: 0px;
+        opacity: 1;
+    }
+    1% {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+    90% {
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+    }
+    100% {
+        display: none;
+        top: 50px;
+        visibility: hidden;
+    }
+}

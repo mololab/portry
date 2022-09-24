@@ -46,6 +46,51 @@ export default class CustomTable extends React.Component<
             hided: false,
           },
         },
+        {
+          port: ":5001",
+          process_id: `5266`,
+          process_name: `Valorant.exe`,
+          socket_type: `TCP6`,
+          controllers: {
+            hided: false,
+          },
+        },
+        {
+          port: ":5001",
+          process_id: `5266`,
+          process_name: `Valorant.exe`,
+          socket_type: `TCP6`,
+          controllers: {
+            hided: false,
+          },
+        },
+        {
+          port: ":5001",
+          process_id: `5266`,
+          process_name: `Valorant.exe`,
+          socket_type: `TCP6`,
+          controllers: {
+            hided: false,
+          },
+        },
+        {
+          port: ":5001",
+          process_id: `5266`,
+          process_name: `Valorant.exe`,
+          socket_type: `TCP6`,
+          controllers: {
+            hided: false,
+          },
+        },
+        {
+          port: ":5001",
+          process_id: `5266`,
+          process_name: `Valorant.exe`,
+          socket_type: `TCP6`,
+          controllers: {
+            hided: false,
+          },
+        },
       ],
     };
   }

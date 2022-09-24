@@ -4,8 +4,11 @@ import LiveReloadOffSVG from "../../../assets/svg/live-reload-off.svg";
 import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
+import CollapseSVG from "../../../assets/svg/collapse.svg";
+
 import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
+import "collapsible-react-component/dist/index.css";
 
 interface ScanPageProps {}
 
@@ -163,7 +166,20 @@ export default class ScanPage extends React.Component<
               </div>
 
               <div className="hided-table-container">
-                <span>hided table container</span>
+                <div className="hided-title-container clickable">
+                  <span className="hided-title">
+                    Hided list{" "}
+                    <img
+                      className="rotated"
+                      src={CollapseSVG}
+                      alt="Collapse icon"
+                    />
+                  </span>
+                </div>
+                <div className="hided-table hiding-list">
+                  {/* hide / show class */}
+                  <CustomTable />
+                </div>
               </div>
             </div>
           </div>
