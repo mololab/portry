@@ -31,8 +31,13 @@
 
 .table-data-container .contents-container .row span:last-child {
     display: flex;
+    visibility: hidden;
     justify-content: center;
     align-items: center;
+}
+
+.table-data-container .contents-container .row:hover span .row-controller {
+    visibility: visible;
 }
 
 .table-data-container .contents-container .row span .row-controller {

@@ -111,7 +111,7 @@ export default class CustomTable extends React.Component<
           <div className="contents-container">
             {data.map((singleData) => {
               return (
-                <div className="row">
+                <div className="row clickable">
                   <>
                     {Object.keys(singleData).map((key) => {
                       let columnData = (singleData as any)[key];
