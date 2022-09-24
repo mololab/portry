@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 
-	netstat "github.com/mololab/portry/netstat"
+	"github.com/mololab/portry/netstat"
 )
 
 func displaySocks() error {
