@@ -10,7 +10,7 @@ import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
 import "collapsible-react-component/dist/index.css";
 
-interface ScanPageProps {}
+interface ScanPageProps { }
 
 interface ScanPageState {
   live_reload: boolean;
@@ -35,7 +35,7 @@ export default class ScanPage extends React.Component<
     });
   }
 
-  refreshTable() {}
+  refreshTable() { }
 
   render() {
     const { live_reload } = this.state;
@@ -90,7 +90,7 @@ export default class ScanPage extends React.Component<
                 flowing
                 on="click"
                 position="bottom right"
-                // open={undefined} // false // true
+              // open={undefined} // false // true
               >
                 <div className="filter-container-popup">
                   {/* start/end port */}

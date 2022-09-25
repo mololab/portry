@@ -40,14 +40,14 @@ type lsofEntry struct {
 	pid     int
 	uid     int
 	typ     string
-	node    string
+	network string
 	local   *SockAddr
 	remote  *SockAddr
 	state   SkState
 }
 
 func doLsofCmd(cb func(e lsofEntry)) (err error) {
-	cmd := exec.Command("lsof", "-i")
+	cmd := exec.Command("lsof", "-i", "-n")
 	outs, err := cmd.Output()
 	if err != nil {
 		return
@@ -63,66 +63,93 @@ func doLsofCmd(cb func(e lsofEntry)) (err error) {
 			err = fmt.Errorf("netstat: not enough fields: %v, %v", len(cols), cols)
 			return
 		}
-		if len(cols) < 10 {
-			continue
-		}
+
 		e.command = cols[0]
 		e.pid, err = strconv.Atoi(cols[1])
 		if err != nil {
 			return
 		}
-		e.uid, err = strconv.Atoi(cols[2])
-		if err != nil {
-			return
-		}
+		// TODO user name to uid
+		// e.uid, err = strconv.Atoi(cols[2])
+		// if err != nil {
+		// 	return
+		// }
+
 		e.typ = cols[4]
-		e.node = cols[7]
+		e.network = cols[7]
 		addrs := strings.SplitN(cols[8], "->", 2)
-		e.local, err = parseAddr(addrs[0])
+		e.local, err = parseAddr(e.typ, e.network, addrs[0])
 		if err != nil {
-			return
+			continue
 		}
-		if len(addrs) >= 2 {
-			e.remote, err = parseAddr(addrs[1])
-			if err != nil {
-				return
+		/*
+			if len(addrs) >= 2 {
+				e.remote, err = parseAddr(e.typ, e.network, addrs[1])
+				if err == nil {
+					fmt.Println("continue 2", addrs)
+					continue
+				}
+			}
+		*/
+
+		if len(cols) >= 10 {
+			switch cols[9] {
+			case "(ESTABLISHED)":
+				e.state = Established
+			case "(CLOSED)":
+				e.state = Close
+			case "(CLOSE WAIT)":
+				e.state = CloseWait
+			case "(LISTEN)":
+				e.state = Listen
+			case "(CLOSING)":
+				e.state = Closing
 			}
 		}
-		switch cols[9] {
-		case "(ESTABLISHED)":
-			e.state = Established
-		case "(CLOSED)":
-			e.state = Close
-		case "(CLOSE WAIT)":
-			e.state = CloseWait
-		case "(LISTEN)":
-			e.state = Listen
-		case "(CLOSING)":
-			e.state = Closing
-		}
+
 		cb(e)
 	}
-	return
+	return nil
 }
 
-func parseAddr(str string) (addr *SockAddr, err error) {
-	i := strings.LastIndexByte(str, ':')
-	ip, prt := str[:i], str[i+1:]
-	addr = &SockAddr{
-		IP: net.ParseIP(ip),
+func parseAddr(typ string, network string, str string) (addr *SockAddr, err error) {
+	if len(str) > 2 && str[:2] == "*:" {
+		switch typ {
+		case "IPv4":
+			str = "0.0.0.0" + str[1:]
+		case "IPv6":
+			str = "[::]" + str[1:]
+		}
 	}
-	var port int
-	port, err = strconv.Atoi(prt)
-	if err != nil {
-		return nil, err
+	switch network {
+	case "TCP":
+		var adr *net.TCPAddr
+		if adr, err = net.ResolveTCPAddr("tcp", str); err != nil {
+			return
+		}
+		addr = &SockAddr{
+			IP:   adr.IP,
+			Port: (uint16)(adr.Port),
+		}
+	case "UDP":
+		var adr *net.UDPAddr
+		if adr, err = net.ResolveUDPAddr("udp", str); err != nil {
+			return
+		}
+		addr = &SockAddr{
+			IP:   adr.IP,
+			Port: (uint16)(adr.Port),
+		}
+	default:
+		err = net.UnknownNetworkError(network)
+		return
 	}
-	addr.Port = (uint16)(port)
 	return
 }
 
 func osTCPSocks(accept AcceptFn) (entries []SockTabEntry, err error) {
 	err = doLsofCmd(func(e lsofEntry) {
-		if e.typ != "IPv4" || e.node != "TCP" {
+		if e.typ != "IPv4" || e.network != "TCP" {
 			return
 		}
 		se := SockTabEntry{
@@ -147,7 +174,7 @@ func osTCPSocks(accept AcceptFn) (entries []SockTabEntry, err error) {
 
 func osTCP6Socks(accept AcceptFn) (entries []SockTabEntry, err error) {
 	err = doLsofCmd(func(e lsofEntry) {
-		if e.typ != "IPv6" || e.node != "TCP" {
+		if e.typ != "IPv6" || e.network != "TCP" {
 			return
 		}
 		se := SockTabEntry{
@@ -172,7 +199,7 @@ func osTCP6Socks(accept AcceptFn) (entries []SockTabEntry, err error) {
 
 func osUDPSocks(accept AcceptFn) (entries []SockTabEntry, err error) {
 	err = doLsofCmd(func(e lsofEntry) {
-		if e.typ != "IPv4" || e.node != "UDP" {
+		if e.typ != "IPv4" || e.network != "UDP" {
 			return
 		}
 		se := SockTabEntry{
@@ -197,7 +224,7 @@ func osUDPSocks(accept AcceptFn) (entries []SockTabEntry, err error) {
 
 func osUDP6Socks(accept AcceptFn) (entries []SockTabEntry, err error) {
 	err = doLsofCmd(func(e lsofEntry) {
-		if e.typ != "IPv6" || e.node != "UDP" {
+		if e.typ != "IPv6" || e.network != "UDP" {
 			return
 		}
 		se := SockTabEntry{

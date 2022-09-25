@@ -2,15 +2,25 @@ package main
 
 import (
 	"embed"
+	"fmt"
 
-	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/mololab/portry/core"
 )
 
 //go:embed frontend/dist
 var assets embed.FS
 
 func main() {
+
+	socks := core.GetSocks()
+
+	// j, _ := json.Marshal(socks)
+	// log.Println(string(j))
+	fmt.Println("Socks", len(socks))
+}
+
+/*
+func initializeApp() {
 	// Create an instance of the app structure
 	app := NewApp()
 
@@ -33,3 +43,4 @@ func main() {
 		println("Error:", err.Error())
 	}
 }
+*/
