@@ -1,5 +1,3 @@
-/* @import "./css/common.css"; */
-
 @font-face {
     font-family: "NunitoBold";
     src: local("Nunito-Bold"), url("./fonts/Nunito-Bold.ttf") format("opentype");
@@ -15,19 +13,9 @@
     src: local("Nunito-ExtraBold"), url("./fonts/Nunito-ExtraBold.ttf") format("opentype");
 }
 
-
-
-
 html {
     background-color: #f5f3f5;
 }
-/* 
-@font-face {
-    font-family: "Nunito";
-    font-style: normal;
-    font-weight: 400;
-    src: local(""), url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
-} */
 
 body {
     margin: 0;

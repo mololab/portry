@@ -2,24 +2,18 @@ package main
 
 import (
 	"embed"
-	"fmt"
 
-	"github.com/mololab/portry/core"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 //go:embed frontend/dist
 var assets embed.FS
 
 func main() {
-
-	socks := core.GetSocks()
-
-	// j, _ := json.Marshal(socks)
-	// log.Println(string(j))
-	fmt.Println("Socks", len(socks))
+	initializeApp()
 }
 
-/*
 func initializeApp() {
 	// Create an instance of the app structure
 	app := NewApp()
@@ -33,7 +27,7 @@ func initializeApp() {
 		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 1},
 		OnStartup:        app.startup,
 		OnShutdown:       app.shutdown,
-		AlwaysOnTop:      true,
+		AlwaysOnTop:      false,
 		Bind: []interface{}{
 			app,
 		},
@@ -43,4 +37,3 @@ func initializeApp() {
 		println("Error:", err.Error())
 	}
 }
-*/

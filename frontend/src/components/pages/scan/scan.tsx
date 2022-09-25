@@ -6,9 +6,11 @@ import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CollapseSVG from "../../../assets/svg/collapse.svg";
 
+import { FetchPorts, Greet } from "../../../../wailsjs/go/main/App"
+
 import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
-import "collapsible-react-component/dist/index.css";
+// import "collapsible-react-component/dist/index.css";
 
 interface ScanPageProps { }
 
@@ -28,8 +30,25 @@ export default class ScanPage extends React.Component<
     };
   }
 
+
+  /*  FetchPorts() {
+    window.go.main.App.Greet(test).then(data => {
+      document.getElementById("result").innerText = data;
+    });
+  } */
+
+  async fetch() {
+    (document.getElementById("mySpan") as HTMLElement).textContent = ""
+    FetchPorts().then((data) => {
+      (document.getElementById("mySpan") as HTMLElement).textContent = JSON.stringify(data)
+      console.log("a", data)
+    })
+  }
+
+
+
+
   liveReloadSwitch() {
-    console.log("si");
     this.setState({
       live_reload: !this.state.live_reload,
     });
@@ -42,6 +61,7 @@ export default class ScanPage extends React.Component<
 
     return (
       <>
+        <span id="mySpan">Span</span>
         <div className="scanpage-container">
           <div className="bar-container">
             <span className="">portry</span>
@@ -151,6 +171,7 @@ export default class ScanPage extends React.Component<
                   className="clickable-icon"
                   src={RefreshSVG}
                   alt="Refresh icon"
+                  onClick={this.fetch.bind(this)}
                 />
               </div>
 

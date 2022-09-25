@@ -22,6 +22,7 @@ type SockTabEntry struct {
 	RemoteAddr *SockAddr
 	State      SkState
 	UID        uint32
+	SocketType string
 	Process    *Process
 }
 

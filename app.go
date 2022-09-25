@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+
+	"github.com/mololab/portry/core"
+	"github.com/mololab/portry/netstat"
 )
 
 // App struct
@@ -21,11 +24,16 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
 	fmt.Println("Startup")
-
 }
 
 func (a *App) shutdown(ctx context.Context) {
 	fmt.Println("Shutdown")
+}
+
+func (a *App) FetchPorts() (socks []netstat.SockTabEntry) {
+	socks = core.GetSocks()
+
+	return socks
 }
 
 // Greet returns a greeting for the given name
