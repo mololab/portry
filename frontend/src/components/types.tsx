@@ -3,7 +3,7 @@ export interface Column {
   visible: boolean;
 }
 
-export interface PortInfo {
+export interface Port {
   port: string;
   process_id?: string;
   process_name?: string;

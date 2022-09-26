@@ -1,16 +1,18 @@
 import React from "react";
-import { Column, PortInfo } from "./types";
+import { Column, Port } from "./types";
 import EyeONSVG from "../assets/svg/eye-on.svg";
 import EyeOFFSVG from "../assets/svg/eye.svg";
 import MoreSVG from "../assets/svg/more.svg";
 import XSVG from "../assets/svg/x.svg";
 import { Popup } from "semantic-ui-react";
 
-interface CustomTableProps {}
+interface CustomTableProps {
+  data: Port[];
+}
 
 interface CustomTableState {
   columns: Column[];
-  data: PortInfo[];
+  data: Port[];
 }
 
 export default class CustomTable extends React.Component<
@@ -27,71 +29,7 @@ export default class CustomTable extends React.Component<
         { name: "Process Name", visible: true },
         { name: "Socket Type", visible: true },
       ],
-      data: [
-        {
-          port: ":5000",
-          process_id: `5265`,
-          process_name: `React.exe`,
-          socket_type: `TCP`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-        {
-          port: ":5001",
-          process_id: `5266`,
-          process_name: `Valorant.exe`,
-          socket_type: `TCP6`,
-          controllers: {
-            hided: false,
-          },
-        },
-      ],
+      data: this.props.data,
     };
   }
 

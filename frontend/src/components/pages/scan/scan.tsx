@@ -5,17 +5,16 @@ import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
 import FilterSVG from "../../../assets/svg/filter.svg";
 import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CollapseSVG from "../../../assets/svg/collapse.svg";
-
-import { FetchPorts, Greet } from "../../../../wailsjs/go/main/App"
-
 import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
-// import "collapsible-react-component/dist/index.css";
+import { GetPorts } from "../../middleware";
+import { Port } from "../../types";
 
-interface ScanPageProps { }
+interface ScanPageProps {}
 
 interface ScanPageState {
   live_reload: boolean;
+  ports: Port[];
 }
 
 export default class ScanPage extends React.Component<
@@ -27,26 +26,19 @@ export default class ScanPage extends React.Component<
 
     this.state = {
       live_reload: false,
+      ports: [],
     };
+
+    this.getPorts();
   }
 
+  async getPorts() {
+    const ports = await GetPorts();
 
-  /*  FetchPorts() {
-    window.go.main.App.Greet(test).then(data => {
-      document.getElementById("result").innerText = data;
+    this.setState({
+      ports: ports,
     });
-  } */
-
-  async fetch() {
-    (document.getElementById("mySpan") as HTMLElement).textContent = ""
-    FetchPorts().then((data) => {
-      (document.getElementById("mySpan") as HTMLElement).textContent = JSON.stringify(data)
-      console.log("a", data)
-    })
   }
-
-
-
 
   liveReloadSwitch() {
     this.setState({
@@ -54,10 +46,10 @@ export default class ScanPage extends React.Component<
     });
   }
 
-  refreshTable() { }
+  refreshTable() {}
 
   render() {
-    const { live_reload } = this.state;
+    const { live_reload, ports } = this.state;
 
     return (
       <>
@@ -110,7 +102,7 @@ export default class ScanPage extends React.Component<
                 flowing
                 on="click"
                 position="bottom right"
-              // open={undefined} // false // true
+                // open={undefined} // false // true
               >
                 <div className="filter-container-popup">
                   {/* start/end port */}
@@ -171,7 +163,7 @@ export default class ScanPage extends React.Component<
                   className="clickable-icon"
                   src={RefreshSVG}
                   alt="Refresh icon"
-                  onClick={this.fetch.bind(this)}
+                  // onClick={this.fetch.bind(this)}
                 />
               </div>
 
@@ -183,7 +175,7 @@ export default class ScanPage extends React.Component<
 
             <div className="tables-container">
               <div className="table-container">
-                <CustomTable />
+                <CustomTable data={ports} />
               </div>
 
               <div className="hided-table-container">
@@ -199,7 +191,7 @@ export default class ScanPage extends React.Component<
                 </div>
                 <div className="hided-table hiding-list">
                   {/* hide / show class */}
-                  <CustomTable />
+                  <CustomTable data={ports} />
                 </div>
               </div>
             </div>
