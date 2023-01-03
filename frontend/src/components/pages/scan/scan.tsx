@@ -7,16 +7,33 @@ import RefreshSVG from "../../../assets/svg/refresh.svg";
 import CollapseSVG from "../../../assets/svg/collapse.svg";
 import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
-import { GetPorts } from "../../middleware";
 import { Port } from "../../types";
 import { FetchPorts } from "../../../../wailsjs/go/main/App";
 import { FormatToUI } from "../../utils/format";
+import { Oval } from "react-loader-spinner";
 
 interface ScanPageProps {}
 
 interface ScanPageState {
   live_reload: boolean;
   ports: Port[];
+  port_start: number;
+  port_end: number;
+  port_visibility: boolean;
+  processID_visibility: boolean;
+  process_name_visibility: boolean;
+  socket_type_visibility: boolean;
+
+  popup_open: boolean;
+
+  popup_port_start: number;
+  popup_port_end: number;
+  popup_port_visibility: boolean;
+  popup_processID_visibility: boolean;
+  popup_process_name_visibility: boolean;
+  popup_socket_type_visibility: boolean;
+
+  filter_applying: boolean;
 }
 
 export default class ScanPage extends React.Component<
@@ -29,17 +46,26 @@ export default class ScanPage extends React.Component<
     this.state = {
       live_reload: false,
       ports: [],
+      port_start: 0,
+      port_end: 65553,
+      port_visibility: true,
+      processID_visibility: true,
+      process_name_visibility: true,
+      socket_type_visibility: true,
+
+      popup_open: false,
+
+      popup_port_start: 0,
+      popup_port_end: 65553,
+      popup_port_visibility: true,
+      popup_processID_visibility: true,
+      popup_process_name_visibility: true,
+      popup_socket_type_visibility: true,
+
+      filter_applying: false,
     };
 
     this.fetchPorts();
-  }
-
-  async getPorts() {
-    const ports = await GetPorts();
-
-    this.setState({
-      ports: ports,
-    });
   }
 
   liveReloadSwitch() {
@@ -48,24 +74,48 @@ export default class ScanPage extends React.Component<
     });
   }
 
+  popupOpen = () => {
+    this.setState({ popup_open: true });
+  };
+
+  popupClose = () => {
+    this.setState({ popup_open: false });
+  };
+
+  filterApply() {
+    this.setState({
+      port_start: this.state.popup_port_start,
+      port_end: this.state.popup_port_end,
+      port_visibility: this.state.popup_port_visibility,
+      processID_visibility: this.state.popup_processID_visibility,
+      process_name_visibility: this.state.popup_process_name_visibility,
+      socket_type_visibility: this.state.popup_socket_type_visibility,
+
+      filter_applying: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        filter_applying: false,
+      });
+      this.popupClose();
+    }, 500);
+  }
+
+  cancelFilter() {
+    this.popupClose();
+  }
+
   refreshTable() {}
 
   fetchPorts() {
-    console.log("fetchPorts");
     FetchPorts()
       .then((result) => {
         let ports = FormatToUI(result);
 
-        this.setState(
-          {
-            ports: ports,
-          },
-          () => {
-            console.log("PORTS UPDATED ON STATE");
-          }
-        );
-
-        console.log("ports:", ports);
+        this.setState({
+          ports: ports,
+        });
       })
       .catch((err) => {
         console.error(`ERROR1`, err);
@@ -73,7 +123,27 @@ export default class ScanPage extends React.Component<
   }
 
   render() {
-    const { live_reload, ports } = this.state;
+    const {
+      live_reload,
+      ports,
+      port_start,
+      port_end,
+      port_visibility,
+      processID_visibility,
+      process_name_visibility,
+      socket_type_visibility,
+
+      popup_open,
+
+      popup_port_start,
+      popup_port_end,
+      popup_port_visibility,
+      popup_processID_visibility,
+      popup_process_name_visibility,
+      popup_socket_type_visibility,
+
+      filter_applying,
+    } = this.state;
 
     return (
       <>
@@ -124,22 +194,40 @@ export default class ScanPage extends React.Component<
                 }
                 flowing
                 on="click"
+                onOpen={this.popupOpen}
+                onClose={this.popupClose}
                 position="bottom right"
-                // open={undefined} // false // true
+                open={popup_open} // false // true
               >
                 <div className="filter-container-popup">
                   {/* start/end port */}
                   <div className="port-filter-container">
                     <span>Port</span>
                     <div className="port-number-input-container">
-                      <input type="text" placeholder="Port number" value={0} />
+                      <input
+                        type="number"
+                        min={0}
+                        placeholder="Port number"
+                        value={popup_port_start}
+                        onChange={(event) => {
+                          this.setState({
+                            popup_port_start: Number(event.target.value),
+                          });
+                        }}
+                      />
                     </div>
                     <span>to</span>
                     <div className="port-number-input-container">
                       <input
-                        type="text"
+                        type="number"
+                        min={0}
                         placeholder="Port number"
-                        value={65553}
+                        value={popup_port_end}
+                        onChange={(event) => {
+                          this.setState({
+                            popup_port_end: Number(event.target.value),
+                          });
+                        }}
                       />
                     </div>
                   </div>
@@ -147,35 +235,97 @@ export default class ScanPage extends React.Component<
                   {/* visible columns */}
                   <div className="column-filter-container">
                     <div>
-                      <input id="column-port" type="checkbox" />
+                      <input
+                        id="column-port"
+                        type="checkbox"
+                        checked={popup_port_visibility}
+                        onChange={() => {
+                          this.setState({
+                            popup_port_visibility: !popup_port_visibility,
+                          });
+                        }}
+                      />
                       <label htmlFor="column-port">Port</label>
                     </div>
 
                     <div>
-                      <input id="column-processid" type="checkbox" />
+                      <input
+                        id="column-processid"
+                        type="checkbox"
+                        checked={popup_processID_visibility}
+                        onChange={() => {
+                          this.setState({
+                            popup_processID_visibility:
+                              !popup_processID_visibility,
+                          });
+                        }}
+                      />
                       <label htmlFor="column-processid">Process ID</label>
                     </div>
 
                     <div>
-                      <input id="column-processname" type="checkbox" />
+                      <input
+                        id="column-processname"
+                        type="checkbox"
+                        checked={popup_process_name_visibility}
+                        onChange={() => {
+                          this.setState({
+                            popup_process_name_visibility:
+                              !popup_process_name_visibility,
+                          });
+                        }}
+                      />
                       <label htmlFor="column-processname">Process Name</label>
                     </div>
 
                     <div>
-                      <input id="column-sockettype" type="checkbox" />
+                      <input
+                        id="column-sockettype"
+                        type="checkbox"
+                        checked={popup_socket_type_visibility}
+                        onChange={() => {
+                          this.setState({
+                            popup_socket_type_visibility:
+                              !popup_socket_type_visibility,
+                          });
+                        }}
+                      />
                       <label htmlFor="column-sockettype">Socket Type</label>
                     </div>
                   </div>
 
                   {/* apply/cancel actions */}
                   <div className="actions">
-                    <div className="cancel-button clickable">
-                      <span>Cancel</span>
-                    </div>
+                    {filter_applying == true ? (
+                      <Oval
+                        height={25}
+                        width={25}
+                        color="#7670fa"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#9f9eb3"
+                        strokeWidth={5}
+                        strokeWidthSecondary={5}
+                      />
+                    ) : (
+                      <>
+                        <div
+                          className="cancel-button clickable"
+                          onClick={this.cancelFilter.bind(this)}
+                        >
+                          <span>Cancel</span>
+                        </div>
 
-                    <div className="apply-button clickable">
-                      <span>Apply</span>
-                    </div>
+                        <div
+                          className="apply-button clickable"
+                          onClick={this.filterApply.bind(this)}
+                        >
+                          <span>Apply</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </Popup>
@@ -198,7 +348,15 @@ export default class ScanPage extends React.Component<
 
             <div className="tables-container">
               <div className="table-container">
-                {ports && ports.length > 0 && <CustomTable data={ports} />}
+                {ports && ports.length > 0 && (
+                  <CustomTable
+                    port_visibility={port_visibility}
+                    processID_visibility={processID_visibility}
+                    process_name_visibility={process_name_visibility}
+                    socket_type_visibility={socket_type_visibility}
+                    data={ports}
+                  />
+                )}
               </div>
 
               <div className="hided-table-container">
@@ -214,7 +372,15 @@ export default class ScanPage extends React.Component<
                 </div>
                 <div className="hided-table hiding-list">
                   {/* hide / show class */}
-                  {ports && ports.length > 0 && <CustomTable data={ports} />}
+                  {ports && ports.length > 0 && (
+                    <CustomTable
+                      port_visibility={port_visibility}
+                      processID_visibility={processID_visibility}
+                      process_name_visibility={process_name_visibility}
+                      socket_type_visibility={socket_type_visibility}
+                      data={ports}
+                    />
+                  )}
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import GithubLogo from "../../../assets/svg/github.svg";
-import ScanButton from "../../../assets/svg/scan-button.svg";
 import { Link } from "react-router-dom";
 
 interface WelcomePageProps {}
@@ -21,8 +20,6 @@ export default class WelcomePage extends React.Component<
           </div>
 
           <div className="content-container">
-            {/* <img className="scan-button" src={ScanButton} alt="React Logo" /> */}
-
             <Link className="scan-link" to="/scan">
               <div className="scan-button clickable">
                 <span>scan</span>

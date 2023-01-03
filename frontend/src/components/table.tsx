@@ -8,6 +8,10 @@ import { Popup } from "semantic-ui-react";
 
 interface CustomTableProps {
   data: Port[];
+  port_visibility: boolean;
+  processID_visibility: boolean;
+  process_name_visibility: boolean;
+  socket_type_visibility: boolean;
 }
 
 interface CustomTableState {
@@ -37,8 +41,18 @@ export default class CustomTable extends React.Component<
 
   render() {
     const { columns, data } = this.state;
+    const {
+      port_visibility,
+      processID_visibility,
+      process_name_visibility,
+      socket_type_visibility,
+    } = this.props;
 
-    console.log("data", data);
+    console.log("-------------------");
+    console.log("port_visibility", port_visibility);
+    console.log("processID_visibility", processID_visibility);
+    console.log("process_name_visibility", process_name_visibility);
+    console.log("socket_type_visibility", socket_type_visibility);
 
     return (
       <>
@@ -57,11 +71,6 @@ export default class CustomTable extends React.Component<
                   <>
                     {Object.keys(singleData).map((key) => {
                       let columnData = (singleData as any)[key];
-                      console.log(
-                        `typeof columnData`,
-                        typeof columnData,
-                        columnData
-                      );
                       if (typeof columnData != "object") {
                         return <span>{columnData}</span>;
                       }
