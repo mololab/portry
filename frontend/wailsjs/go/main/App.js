@@ -9,3 +9,7 @@ export function FetchPorts() {
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
+
+export function SayHello() {
+  return window['go']['main']['App']['SayHello']();
+}

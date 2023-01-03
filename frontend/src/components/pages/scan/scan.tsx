@@ -9,6 +9,8 @@ import CustomTable from "../../table";
 import { Popup } from "semantic-ui-react";
 import { GetPorts } from "../../middleware";
 import { Port } from "../../types";
+import { FetchPorts } from "../../../../wailsjs/go/main/App";
+import { FormatToUI } from "../../utils/format";
 
 interface ScanPageProps {}
 
@@ -29,7 +31,7 @@ export default class ScanPage extends React.Component<
       ports: [],
     };
 
-    this.getPorts();
+    this.fetchPorts();
   }
 
   async getPorts() {
@@ -48,12 +50,33 @@ export default class ScanPage extends React.Component<
 
   refreshTable() {}
 
+  fetchPorts() {
+    console.log("fetchPorts");
+    FetchPorts()
+      .then((result) => {
+        let ports = FormatToUI(result);
+
+        this.setState(
+          {
+            ports: ports,
+          },
+          () => {
+            console.log("PORTS UPDATED ON STATE");
+          }
+        );
+
+        console.log("ports:", ports);
+      })
+      .catch((err) => {
+        console.error(`ERROR1`, err);
+      });
+  }
+
   render() {
     const { live_reload, ports } = this.state;
 
     return (
       <>
-        <span id="mySpan">Span</span>
         <div className="scanpage-container">
           <div className="bar-container">
             <span className="">portry</span>
@@ -175,7 +198,7 @@ export default class ScanPage extends React.Component<
 
             <div className="tables-container">
               <div className="table-container">
-                <CustomTable data={ports} />
+                {ports && ports.length > 0 && <CustomTable data={ports} />}
               </div>
 
               <div className="hided-table-container">
@@ -191,7 +214,7 @@ export default class ScanPage extends React.Component<
                 </div>
                 <div className="hided-table hiding-list">
                   {/* hide / show class */}
-                  <CustomTable data={ports} />
+                  {ports && ports.length > 0 && <CustomTable data={ports} />}
                 </div>
               </div>
             </div>

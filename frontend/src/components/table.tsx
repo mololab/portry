@@ -22,6 +22,8 @@ export default class CustomTable extends React.Component<
   constructor(props: CustomTableProps) {
     super(props);
 
+    console.log("props", props);
+
     this.state = {
       columns: [
         { name: "Port", visible: true },
@@ -35,6 +37,8 @@ export default class CustomTable extends React.Component<
 
   render() {
     const { columns, data } = this.state;
+
+    console.log("data", data);
 
     return (
       <>
@@ -53,7 +57,12 @@ export default class CustomTable extends React.Component<
                   <>
                     {Object.keys(singleData).map((key) => {
                       let columnData = (singleData as any)[key];
-                      if (typeof columnData == "string") {
+                      console.log(
+                        `typeof columnData`,
+                        typeof columnData,
+                        columnData
+                      );
+                      if (typeof columnData != "object") {
                         return <span>{columnData}</span>;
                       }
                     })}

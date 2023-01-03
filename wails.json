@@ -2,9 +2,14 @@
   "name": "portry",
   "outputfilename": "portry",
   "frontend:install": "npm install",
+
   "frontend:build": "npm run build",
+  "frontend:dev": "echo dev",
+  "frontend:dev:build": "echo dev",
   "frontend:dev:watcher": "npm run dev",
-  "frontend:dev:serverUrl": "auto",
+  "frontend:dev:serverUrl": "http://localhost:5173",
+  "wailsjsdir": "frontend/wailsjs",
+
   "author": {
     "name": "ParvinEyvazov",
     "email": "pervin.eyvazov1999@gmail.com"

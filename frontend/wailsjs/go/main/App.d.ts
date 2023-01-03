@@ -5,3 +5,5 @@ import {netstat} from '../models';
 export function FetchPorts():Promise<Array<netstat.SockTabEntry>>;
 
 export function Greet(arg1:string):Promise<string>;
+
+export function SayHello():Promise<string>;

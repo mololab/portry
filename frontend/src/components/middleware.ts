@@ -1,11 +1,11 @@
 import { fetchPortsFromServer } from "./utils/server";
-import { formatToUI } from "./utils/format";
+import { FormatToUI } from "./utils/format";
 import { Port } from "./types";
 
 export async function GetPorts(): Promise<Port[]> {
   let portsFromServer = await fetchPortsFromServer();
 
-  let formattedPortsForUI = formatToUI(portsFromServer);
+  let formattedPortsForUI = FormatToUI(portsFromServer);
 
   return formattedPortsForUI;
 }
