@@ -2,10 +2,13 @@ package core
 
 import (
 	"fmt"
+	"sort"
 	"sync"
 
 	"github.com/mololab/portry/netstat"
 )
+
+type ByPort []netstat.SockTabEntry
 
 type SocketFunction struct {
 	socketType string
@@ -64,6 +67,8 @@ func GetSocks() []netstat.SockTabEntry {
 
 	wg.Wait()
 
+	SortByPorts()
+
 	return Socks
 }
 
@@ -77,4 +82,21 @@ func fillSocks(socks []netstat.SockTabEntry) {
 	mutex.Lock()
 	Socks = append(Socks, socks...)
 	mutex.Unlock()
+}
+
+// Sort sockets by Port number
+func SortByPorts() {
+	sort.Sort(ByPort(Socks))
+}
+
+func (a ByPort) Len() int {
+	return len(a)
+}
+
+func (a ByPort) Less(i, j int) bool {
+	return a[i].LocalAddr.Port < a[j].LocalAddr.Port
+}
+
+func (a ByPort) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
 }
