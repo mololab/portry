@@ -8,7 +8,6 @@ import { Popup } from "semantic-ui-react";
 
 interface CustomTableProps {
   data: Port[];
-  port_visibility: boolean;
   processID_visibility: boolean;
   process_name_visibility: boolean;
   socket_type_visibility: boolean;
@@ -30,10 +29,10 @@ export default class CustomTable extends React.Component<
 
     this.state = {
       columns: [
-        { name: "Port", visible: true },
-        { name: "Process ID", visible: true },
-        { name: "Process Name", visible: true },
-        { name: "Socket Type", visible: true },
+        { name: "Port" },
+        { name: "Process ID" },
+        { name: "Process Name" },
+        { name: "Socket Type" },
       ],
       data: this.props.data,
     };
@@ -42,14 +41,12 @@ export default class CustomTable extends React.Component<
   render() {
     const { columns, data } = this.state;
     const {
-      port_visibility,
       processID_visibility,
       process_name_visibility,
       socket_type_visibility,
     } = this.props;
 
     console.log("-------------------");
-    console.log("port_visibility", port_visibility);
     console.log("processID_visibility", processID_visibility);
     console.log("process_name_visibility", process_name_visibility);
     console.log("socket_type_visibility", socket_type_visibility);
@@ -58,9 +55,10 @@ export default class CustomTable extends React.Component<
       <>
         <div className="table-data-container">
           <div className="title-container">
-            {columns.map((column) => (
-              <span>{column.name}</span>
-            ))}
+            <span>{columns[0].name}</span>
+            {processID_visibility == true && <span>{columns[1].name}</span>}
+            {process_name_visibility == true && <span>{columns[2].name}</span>}
+            {socket_type_visibility == true && <span>{columns[3].name}</span>}
             <span></span>
           </div>
 
@@ -69,13 +67,16 @@ export default class CustomTable extends React.Component<
               return (
                 <div className="row clickable">
                   <>
-                    {Object.keys(singleData).map((key) => {
-                      let columnData = (singleData as any)[key];
-                      if (typeof columnData != "object") {
-                        return <span>{columnData}</span>;
-                      }
-                    })}
-
+                    <span>{singleData.port}</span>
+                    {processID_visibility == true && (
+                      <span>{singleData.process_id}</span>
+                    )}
+                    {process_name_visibility == true && (
+                      <span>{singleData.process_name}</span>
+                    )}
+                    {socket_type_visibility == true && (
+                      <span>{singleData.socket_type}</span>
+                    )}
                     <span>
                       <div className="row-controller">
                         <div className="hide-status">

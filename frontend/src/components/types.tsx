@@ -1,6 +1,5 @@
 export interface Column {
   name: string;
-  visible: boolean;
 }
 
 export interface Port {

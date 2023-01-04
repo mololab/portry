@@ -19,7 +19,6 @@ interface ScanPageState {
   ports: Port[];
   port_start: number;
   port_end: number;
-  port_visibility: boolean;
   processID_visibility: boolean;
   process_name_visibility: boolean;
   socket_type_visibility: boolean;
@@ -28,7 +27,6 @@ interface ScanPageState {
 
   popup_port_start: number;
   popup_port_end: number;
-  popup_port_visibility: boolean;
   popup_processID_visibility: boolean;
   popup_process_name_visibility: boolean;
   popup_socket_type_visibility: boolean;
@@ -48,7 +46,6 @@ export default class ScanPage extends React.Component<
       ports: [],
       port_start: 0,
       port_end: 65553,
-      port_visibility: true,
       processID_visibility: true,
       process_name_visibility: true,
       socket_type_visibility: true,
@@ -57,7 +54,6 @@ export default class ScanPage extends React.Component<
 
       popup_port_start: 0,
       popup_port_end: 65553,
-      popup_port_visibility: true,
       popup_processID_visibility: true,
       popup_process_name_visibility: true,
       popup_socket_type_visibility: true,
@@ -86,7 +82,6 @@ export default class ScanPage extends React.Component<
     this.setState({
       port_start: this.state.popup_port_start,
       port_end: this.state.popup_port_end,
-      port_visibility: this.state.popup_port_visibility,
       processID_visibility: this.state.popup_processID_visibility,
       process_name_visibility: this.state.popup_process_name_visibility,
       socket_type_visibility: this.state.popup_socket_type_visibility,
@@ -128,7 +123,6 @@ export default class ScanPage extends React.Component<
       ports,
       port_start,
       port_end,
-      port_visibility,
       processID_visibility,
       process_name_visibility,
       socket_type_visibility,
@@ -137,7 +131,6 @@ export default class ScanPage extends React.Component<
 
       popup_port_start,
       popup_port_end,
-      popup_port_visibility,
       popup_processID_visibility,
       popup_process_name_visibility,
       popup_socket_type_visibility,
@@ -234,20 +227,6 @@ export default class ScanPage extends React.Component<
 
                   {/* visible columns */}
                   <div className="column-filter-container">
-                    <div>
-                      <input
-                        id="column-port"
-                        type="checkbox"
-                        checked={popup_port_visibility}
-                        onChange={() => {
-                          this.setState({
-                            popup_port_visibility: !popup_port_visibility,
-                          });
-                        }}
-                      />
-                      <label htmlFor="column-port">Port</label>
-                    </div>
-
                     <div>
                       <input
                         id="column-processid"
@@ -350,7 +329,6 @@ export default class ScanPage extends React.Component<
               <div className="table-container">
                 {ports && ports.length > 0 && (
                   <CustomTable
-                    port_visibility={port_visibility}
                     processID_visibility={processID_visibility}
                     process_name_visibility={process_name_visibility}
                     socket_type_visibility={socket_type_visibility}
@@ -374,7 +352,6 @@ export default class ScanPage extends React.Component<
                   {/* hide / show class */}
                   {ports && ports.length > 0 && (
                     <CustomTable
-                      port_visibility={port_visibility}
                       processID_visibility={processID_visibility}
                       process_name_visibility={process_name_visibility}
                       socket_type_visibility={socket_type_visibility}
