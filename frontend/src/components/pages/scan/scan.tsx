@@ -40,6 +40,8 @@ export default class ScanPage extends React.Component<
   ScanPageProps,
   ScanPageState
 > {
+  liveReloadInterval: any;
+
   constructor(props: any) {
     super(props);
 
@@ -69,6 +71,18 @@ export default class ScanPage extends React.Component<
   }
 
   liveReloadSwitch() {
+    if (this.state.live_reload == false) {
+      this.liveReloadInterval = setInterval(
+        () => {
+          this.fetchPorts();
+        },
+        1000,
+        this
+      );
+    } else {
+      clearInterval(this.liveReloadInterval);
+    }
+
     this.setState({
       live_reload: !this.state.live_reload,
     });

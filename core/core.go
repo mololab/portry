@@ -57,6 +57,8 @@ func fetchSocks(wg *sync.WaitGroup, socketType string, fetcher func(accept netst
 
 // GetSocks returns all type socket`s port information
 func GetSocks() []netstat.SockTabEntry {
+	Socks = []netstat.SockTabEntry{}
+
 	var wg sync.WaitGroup
 
 	wg.Add(4)
