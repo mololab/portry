@@ -106,7 +106,10 @@ export default class ScanPage extends React.Component<
     this.popupClose();
   }
 
-  refreshTable() {}
+  refreshTable() {
+    console.log("refreshTable");
+    this.fetchPorts();
+  }
 
   fetchPorts() {
     FetchPorts(this.state.port_start, this.state.port_end)
@@ -318,7 +321,7 @@ export default class ScanPage extends React.Component<
                   className="clickable-icon"
                   src={RefreshSVG}
                   alt="Refresh icon"
-                  // onClick={this.fetch.bind(this)}
+                  onClick={this.refreshTable.bind(this)}
                 />
               </div>
 

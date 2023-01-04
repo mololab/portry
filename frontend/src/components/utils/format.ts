@@ -5,11 +5,9 @@ export function FormatToUI(portsDataServer: any[]): Port[] {
 
   portsDataServer.forEach((portDataServer: { [key: string]: any }) => {
     uiPortData.push({
-      port: undefinedCheck(portDataServer?.["LocalAddr"]?.["Port"] as string),
-      process_id: undefinedCheck(
-        portDataServer?.["Process"]?.["Pid"] as string
-      ),
-      process_name: undefinedCheck(portDataServer?.["Process"]?.["Name"]),
+      port: undefinedCheck(portDataServer?.["Port"] as string),
+      process_id: undefinedCheck(portDataServer?.["ProcessID"] as string),
+      process_name: undefinedCheck(portDataServer?.["ProcessName"]),
       socket_type: undefinedCheck(portDataServer?.["SocketType"]),
       controllers: {
         hided: false,
@@ -21,7 +19,7 @@ export function FormatToUI(portsDataServer: any[]): Port[] {
 }
 
 function undefinedCheck(text: any): string {
-  if (text == undefined) {
+  if (text == undefined || text == "") {
     return "-";
   }
   return String(text);

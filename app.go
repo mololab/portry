@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/mololab/portry/core"
-	"github.com/mololab/portry/netstat"
 )
 
 // App struct
@@ -30,10 +29,12 @@ func (a *App) shutdown(ctx context.Context) {
 	fmt.Println("Shutdown")
 }
 
-func (a *App) FetchPorts(startPort, endPort int) (socks []netstat.SockTabEntry) {
-	socks = core.GetSocks()
+func (a *App) FetchPorts(startPort, endPort int) []core.Socket {
+	socks := core.GetSocks()
 
-	filteredSocks := core.FilterSocks(socks, startPort, endPort)
+	formatted := core.Format(socks)
+
+	filteredSocks := core.FilterSocks(formatted, startPort, endPort)
 
 	return filteredSocks
 }
