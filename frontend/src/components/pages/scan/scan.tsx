@@ -32,6 +32,8 @@ interface ScanPageState {
   popup_socket_type_visibility: boolean;
 
   filter_applying: boolean;
+
+  data_fetching: boolean;
 }
 
 export default class ScanPage extends React.Component<
@@ -59,6 +61,8 @@ export default class ScanPage extends React.Component<
       popup_socket_type_visibility: true,
 
       filter_applying: false,
+
+      data_fetching: false,
     };
 
     this.fetchPorts();
@@ -112,12 +116,17 @@ export default class ScanPage extends React.Component<
   }
 
   fetchPorts() {
+    this.setState({
+      data_fetching: true,
+    });
+
     FetchPorts(this.state.port_start, this.state.port_end)
       .then((result) => {
         let ports = FormatToUI(result);
 
         this.setState({
           ports: ports,
+          data_fetching: false,
         });
       })
       .catch((err) => {
@@ -142,6 +151,8 @@ export default class ScanPage extends React.Component<
       popup_socket_type_visibility,
 
       filter_applying,
+
+      data_fetching,
     } = this.state;
 
     return (
@@ -317,6 +328,23 @@ export default class ScanPage extends React.Component<
 
               {/* refresh */}
               <div className="refresh-container clickable">
+                {data_fetching == true && (
+                  <div className="data-loading">
+                    <Oval
+                      height={20}
+                      width={20}
+                      color="#7670fa"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                      ariaLabel="oval-loading"
+                      secondaryColor="#9f9eb3"
+                      strokeWidth={5}
+                      strokeWidthSecondary={5}
+                    />
+                  </div>
+                )}
+
                 <img
                   className="clickable-icon"
                   src={RefreshSVG}

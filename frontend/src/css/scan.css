@@ -163,13 +163,15 @@
 }
 
 .controller-container .refresh-container {
+    display: flex;
     margin-left: auto;
     margin-right: 20px;
     margin-top: 3px;
     transform: scale(1.2);
 }
 
-.controller-container .table-info-container {
+.controller-container .refresh-container img {
+    margin-left: 10px;
 }
 
 .controller-container .table-info-container span {
