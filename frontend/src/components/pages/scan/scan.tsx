@@ -104,7 +104,7 @@ export default class ScanPage extends React.Component<
   refreshTable() {}
 
   fetchPorts() {
-    FetchPorts()
+    FetchPorts(this.state.port_start, this.state.port_end)
       .then((result) => {
         let ports = FormatToUI(result);
 

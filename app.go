@@ -30,13 +30,10 @@ func (a *App) shutdown(ctx context.Context) {
 	fmt.Println("Shutdown")
 }
 
-func (a *App) FetchPorts() (socks []netstat.SockTabEntry) {
+func (a *App) FetchPorts(startPort, endPort int) (socks []netstat.SockTabEntry) {
 	socks = core.GetSocks()
 
-	return socks
-}
+	filteredSocks := core.FilterSocks(socks, startPort, endPort)
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+	return filteredSocks
 }

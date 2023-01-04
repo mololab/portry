@@ -8,7 +8,7 @@
   "frontend:dev:build": "echo dev",
   "frontend:dev:watcher": "npm run dev",
   "frontend:dev:serverUrl": "http://localhost:5173",
-  "wailsjsdir": "frontend/wailsjs",
+  "wailsjsdir": "frontend",
 
   "author": {
     "name": "ParvinEyvazov",
