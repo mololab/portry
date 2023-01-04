@@ -79,15 +79,20 @@ export default class ScanPage extends React.Component<
   };
 
   filterApply() {
-    this.setState({
-      port_start: this.state.popup_port_start,
-      port_end: this.state.popup_port_end,
-      processID_visibility: this.state.popup_processID_visibility,
-      process_name_visibility: this.state.popup_process_name_visibility,
-      socket_type_visibility: this.state.popup_socket_type_visibility,
+    this.setState(
+      {
+        port_start: this.state.popup_port_start,
+        port_end: this.state.popup_port_end,
+        processID_visibility: this.state.popup_processID_visibility,
+        process_name_visibility: this.state.popup_process_name_visibility,
+        socket_type_visibility: this.state.popup_socket_type_visibility,
 
-      filter_applying: true,
-    });
+        filter_applying: true,
+      },
+      () => {
+        this.fetchPorts();
+      }
+    );
 
     setTimeout(() => {
       this.setState({
@@ -121,8 +126,6 @@ export default class ScanPage extends React.Component<
     const {
       live_reload,
       ports,
-      port_start,
-      port_end,
       processID_visibility,
       process_name_visibility,
       socket_type_visibility,
@@ -190,7 +193,7 @@ export default class ScanPage extends React.Component<
                 onOpen={this.popupOpen}
                 onClose={this.popupClose}
                 position="bottom right"
-                open={popup_open} // false // true
+                open={popup_open}
               >
                 <div className="filter-container-popup">
                   {/* start/end port */}

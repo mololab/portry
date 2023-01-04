@@ -15,7 +15,6 @@ interface CustomTableProps {
 
 interface CustomTableState {
   columns: Column[];
-  data: Port[];
 }
 
 export default class CustomTable extends React.Component<
@@ -34,22 +33,17 @@ export default class CustomTable extends React.Component<
         { name: "Process Name" },
         { name: "Socket Type" },
       ],
-      data: this.props.data,
     };
   }
 
   render() {
-    const { columns, data } = this.state;
+    const { columns } = this.state;
     const {
+      data,
       processID_visibility,
       process_name_visibility,
       socket_type_visibility,
     } = this.props;
-
-    console.log("-------------------");
-    console.log("processID_visibility", processID_visibility);
-    console.log("process_name_visibility", process_name_visibility);
-    console.log("socket_type_visibility", socket_type_visibility);
 
     return (
       <>
