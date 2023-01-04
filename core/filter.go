@@ -10,6 +10,7 @@ func FilterSocks(socks []Socket, startPort, endPort int) []Socket {
 	return filteredBySameSocks
 }
 
+// filterByPortInterval filters by port interval that provided by UI
 func filterByPortInterval(socks []Socket, startPort, endPort int) []Socket {
 	if startPort > endPort {
 		return []Socket{}
@@ -26,22 +27,37 @@ func filterByPortInterval(socks []Socket, startPort, endPort int) []Socket {
 	return filteredSocks
 }
 
+// filterBySameSocks prevents to have 2 same sockets
 func filterBySameSocks(socks []Socket) []Socket {
 	var filteredSocks []Socket = []Socket{}
 
 	for i := range socks {
 
-		if i != 0 {
-			if socks[i-1].Port != socks[i].Port ||
-				socks[i-1].ProcessID != socks[i].ProcessID ||
-				socks[i-1].ProcessName != socks[i].ProcessName ||
-				socks[i-1].SocketType != socks[i].SocketType {
+		if i == 0 {
+			filteredSocks = append(filteredSocks, socks[i])
+			continue
+		} else if i == 1 { // check with 1 back
+			if !isSameData(socks[i-1], socks[i]) {
 				filteredSocks = append(filteredSocks, socks[i])
 			}
-		} else {
-			filteredSocks = append(filteredSocks, socks[i])
+		} else { // check with 1 back and 2 back
+			if !isSameData(socks[i-1], socks[i]) && !isSameData(socks[i-2], socks[i]) {
+				filteredSocks = append(filteredSocks, socks[i])
+			}
 		}
 	}
 
 	return filteredSocks
+}
+
+// isSameData checks 2 socket data is same or not
+func isSameData(sock1, sock2 Socket) bool {
+	if sock1.Port != sock2.Port ||
+		sock1.ProcessID != sock2.ProcessID ||
+		sock1.ProcessName != sock2.ProcessName ||
+		sock1.SocketType != sock2.SocketType {
+		return false
+	}
+
+	return true
 }
