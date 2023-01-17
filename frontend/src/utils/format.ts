@@ -1,4 +1,4 @@
-import { Port } from "../types";
+import { Port } from "./types";
 
 export function FormatToUI(portsDataServer: any[]): Port[] {
   let uiPortData: Port[] = [];

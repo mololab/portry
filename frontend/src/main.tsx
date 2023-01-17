@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ScanPage from "./components/pages/scan/scan";
-import WelcomePage from "./components/pages/welcome/welcome";
+import ScanPage from "./pages/scan/scan";
+import WelcomePage from "./pages/welcome/welcome";
 import "./style.css";
 import "./css/common.css";
 import "./css/welcome.css";

@@ -1,5 +1,5 @@
 import React from "react";
-import GithubLogo from "../../../assets/svg/github.svg";
+import GithubLogo from "../../assets/svg/github.svg";
 import { Link } from "react-router-dom";
 
 interface WelcomePageProps {}

@@ -1,14 +1,14 @@
 import React from "react";
-import SearchSVG from "../../../assets/svg/search.svg";
-import LiveReloadOffSVG from "../../../assets/svg/live-reload-off.svg";
-import LiveReloadOnSVG from "../../../assets/svg/live-reload-on.svg";
-import FilterSVG from "../../../assets/svg/filter.svg";
-import RefreshSVG from "../../../assets/svg/refresh.svg";
-import CollapseSVG from "../../../assets/svg/collapse.svg";
-import CustomTable from "../../table";
+import SearchSVG from "../../assets/svg/search.svg";
+import LiveReloadOffSVG from "../../assets/svg/live-reload-off.svg";
+import LiveReloadOnSVG from "../../assets/svg/live-reload-on.svg";
+import FilterSVG from "../../assets/svg/filter.svg";
+import RefreshSVG from "../../assets/svg/refresh.svg";
+import CollapseSVG from "../../assets/svg/collapse.svg";
+import CustomTable from "../../components/table";
 import { Popup } from "semantic-ui-react";
-import { Port } from "../../types";
-import { FetchPorts } from "../../../../wailsjs/go/main/App";
+import { Port } from "../../utils/types";
+import { FetchPorts } from "../../../wailsjs/go/main/App";
 import { FormatToUI } from "../../utils/format";
 import { Oval } from "react-loader-spinner";
 
