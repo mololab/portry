@@ -230,6 +230,7 @@ export default class ScanPage extends React.Component<
                 onClick={this.liveReloadSwitch.bind(this)}
                 className="live-reload-container clickable"
               >
+                <span>Live</span>
                 {live_reload ? (
                   <img
                     className="clickable-icon"
@@ -249,6 +250,7 @@ export default class ScanPage extends React.Component<
               <Popup
                 trigger={
                   <div className="filter-container clickable">
+                    <span>Filter</span>
                     <img
                       className="clickable-icon"
                       src={FilterSVG}
@@ -401,12 +403,15 @@ export default class ScanPage extends React.Component<
 
               {/* refresh */}
               {!live_reload && (
-                <div className="refresh-container clickable">
+                <div
+                  className="refresh-container clickable"
+                  onClick={this.refreshTable.bind(this)}
+                >
+                  <span>Reload</span>
                   <img
                     className="clickable-icon"
                     src={RefreshSVG}
                     alt="Refresh icon"
-                    onClick={this.refreshTable.bind(this)}
                   />
                 </div>
               )}
