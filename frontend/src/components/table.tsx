@@ -73,6 +73,7 @@ export default class CustomTable extends React.Component<
                     )}
                     <span>
                       <div className="row-controller">
+                        {/* 
                         <div className="hide-status">
                           {singleData.controllers.hided == true ? (
                             <img
@@ -87,7 +88,8 @@ export default class CustomTable extends React.Component<
                               alt="Hidden"
                             />
                           )}
-                        </div>
+                        </div> 
+                        */}
 
                         <div className="more-container">
                           <Popup

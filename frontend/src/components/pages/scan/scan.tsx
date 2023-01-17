@@ -15,6 +15,8 @@ import { Oval } from "react-loader-spinner";
 interface ScanPageProps {}
 
 interface ScanPageState {
+  search_text: string;
+
   live_reload: boolean;
   ports: Port[];
   port_start: number;
@@ -46,6 +48,8 @@ export default class ScanPage extends React.Component<
     super(props);
 
     this.state = {
+      search_text: "",
+
       live_reload: false,
       ports: [],
       port_start: 0,
@@ -96,7 +100,7 @@ export default class ScanPage extends React.Component<
     this.setState({ popup_open: false });
   };
 
-  filterApply() {
+  applyTableFilter() {
     this.setState(
       {
         port_start: this.state.popup_port_start,
@@ -120,12 +124,11 @@ export default class ScanPage extends React.Component<
     }, 500);
   }
 
-  cancelFilter() {
+  cancelTableFilter() {
     this.popupClose();
   }
 
   refreshTable() {
-    console.log("refreshTable");
     this.fetchPorts();
   }
 
@@ -148,8 +151,31 @@ export default class ScanPage extends React.Component<
       });
   }
 
+  searchFilter(search_text: string, ports: Port[]): Port[] {
+    let filtered_ports: Port[] = [];
+
+    ports.forEach((port) => {
+      let search_string = [
+        String(port.port),
+        String(port.process_id),
+        port.process_name,
+        port.socket_type,
+      ].join(" ");
+
+      if (search_string.toLowerCase().includes(search_text.toLowerCase())) {
+        filtered_ports.push(port);
+      }
+    });
+
+    console.log("num of search filtered", filtered_ports.length);
+
+    return filtered_ports;
+  }
+
   render() {
     const {
+      search_text,
+
       live_reload,
       ports,
       processID_visibility,
@@ -169,6 +195,10 @@ export default class ScanPage extends React.Component<
       data_fetching,
     } = this.state;
 
+    console.log("filter with", search_text);
+
+    let search_filtered_ports = this.searchFilter(search_text, ports);
+
     return (
       <>
         <div className="scanpage-container">
@@ -180,7 +210,17 @@ export default class ScanPage extends React.Component<
             <div className="controller-container">
               {/* search bar */}
               <div className="search-container">
-                <input type="text" placeholder="Search" />
+                <input
+                  type="text"
+                  value={search_text}
+                  onChange={(event) => {
+                    this.setState({
+                      search_text: event.target.value,
+                    });
+                    console.log("on change", event.target.value);
+                  }}
+                  placeholder="Search..."
+                />
 
                 <img src={SearchSVG} alt="Search icon" />
               </div>
@@ -323,14 +363,14 @@ export default class ScanPage extends React.Component<
                       <>
                         <div
                           className="cancel-button clickable"
-                          onClick={this.cancelFilter.bind(this)}
+                          onClick={this.cancelTableFilter.bind(this)}
                         >
                           <span>Cancel</span>
                         </div>
 
                         <div
                           className="apply-button clickable"
-                          onClick={this.filterApply.bind(this)}
+                          onClick={this.applyTableFilter.bind(this)}
                         >
                           <span>Apply</span>
                         </div>
@@ -340,36 +380,40 @@ export default class ScanPage extends React.Component<
                 </div>
               </Popup>
 
-              {/* refresh */}
-              <div className="refresh-container clickable">
-                {data_fetching == true && (
-                  <div className="data-loading">
-                    <Oval
-                      height={20}
-                      width={20}
-                      color="#7670fa"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                      ariaLabel="oval-loading"
-                      secondaryColor="#9f9eb3"
-                      strokeWidth={5}
-                      strokeWidthSecondary={5}
-                    />
-                  </div>
-                )}
+              <div className="space"></div>
 
-                <img
-                  className="clickable-icon"
-                  src={RefreshSVG}
-                  alt="Refresh icon"
-                  onClick={this.refreshTable.bind(this)}
-                />
-              </div>
+              {data_fetching == true && (
+                <div className="data-loading">
+                  <Oval
+                    height={20}
+                    width={20}
+                    color="#7670fa"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#9f9eb3"
+                    strokeWidth={5}
+                    strokeWidthSecondary={5}
+                  />
+                </div>
+              )}
+
+              {/* refresh */}
+              {!live_reload && (
+                <div className="refresh-container clickable">
+                  <img
+                    className="clickable-icon"
+                    src={RefreshSVG}
+                    alt="Refresh icon"
+                    onClick={this.refreshTable.bind(this)}
+                  />
+                </div>
+              )}
 
               {/* table-info */}
               <div className="table-info-container">
-                <span>Showing 8 items</span>
+                <span>Showing {search_filtered_ports.length} items</span>
               </div>
             </div>
 
@@ -380,11 +424,12 @@ export default class ScanPage extends React.Component<
                     processID_visibility={processID_visibility}
                     process_name_visibility={process_name_visibility}
                     socket_type_visibility={socket_type_visibility}
-                    data={ports}
+                    data={search_filtered_ports}
                   />
                 )}
               </div>
 
+              {/* HIDING FEATURE
               <div className="hided-table-container">
                 <div className="hided-title-container clickable">
                   <span className="hided-title">
@@ -397,7 +442,6 @@ export default class ScanPage extends React.Component<
                   </span>
                 </div>
                 <div className="hided-table hiding-list">
-                  {/* hide / show class */}
                   {ports && ports.length > 0 && (
                     <CustomTable
                       processID_visibility={processID_visibility}
@@ -407,7 +451,8 @@ export default class ScanPage extends React.Component<
                     />
                   )}
                 </div>
-              </div>
+              </div> 
+              */}
             </div>
           </div>
         </div>

@@ -162,9 +162,16 @@
     font-family: NunitoRegular;
 }
 
+.controller-container .space {
+    margin-left: auto;
+}
+
+.controller-container .data-loading {
+    margin-right: 10px;
+}
+
 .controller-container .refresh-container {
     display: flex;
-    margin-left: auto;
     margin-right: 20px;
     margin-top: 3px;
     transform: scale(1.2);
