@@ -12,12 +12,12 @@ interface CustomTableProps {
   processID_visibility: boolean;
   process_name_visibility: boolean;
   socket_type_visibility: boolean;
+
+  fetchPorts: any;
 }
 
 interface CustomTableState {
   columns: Column[];
-
-  more_popup_is_open: boolean;
 }
 
 export default class CustomTable extends React.Component<
@@ -36,13 +36,13 @@ export default class CustomTable extends React.Component<
         { name: "Process Name" },
         { name: "Socket Type" },
       ],
-      more_popup_is_open: false,
     };
   }
 
   killProcess(process_name: string) {
     KillProcess(process_name)
       .then((result) => {
+        this.props.fetchPorts();
         console.log("result", result);
       })
       .catch((err) => {
@@ -51,7 +51,7 @@ export default class CustomTable extends React.Component<
   }
 
   render() {
-    const { columns, more_popup_is_open } = this.state;
+    const { columns } = this.state;
     const {
       data,
       processID_visibility,

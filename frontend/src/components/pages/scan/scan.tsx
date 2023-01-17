@@ -425,6 +425,7 @@ export default class ScanPage extends React.Component<
                     process_name_visibility={process_name_visibility}
                     socket_type_visibility={socket_type_visibility}
                     data={search_filtered_ports}
+                    fetchPorts={this.fetchPorts.bind(this)}
                   />
                 )}
               </div>
