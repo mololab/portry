@@ -3,3 +3,5 @@
 import {core} from '../models';
 
 export function FetchPorts(arg1:number,arg2:number):Promise<Array<core.Socket>>;
+
+export function KillProcess(arg1:string):Promise<boolean>;

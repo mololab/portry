@@ -5,6 +5,7 @@ import EyeOFFSVG from "../assets/svg/eye.svg";
 import MoreSVG from "../assets/svg/more.svg";
 import XSVG from "../assets/svg/x.svg";
 import { Popup } from "semantic-ui-react";
+import { KillProcess } from "../../wailsjs/go/main/App";
 
 interface CustomTableProps {
   data: Port[];
@@ -15,6 +16,8 @@ interface CustomTableProps {
 
 interface CustomTableState {
   columns: Column[];
+
+  more_popup_is_open: boolean;
 }
 
 export default class CustomTable extends React.Component<
@@ -33,11 +36,22 @@ export default class CustomTable extends React.Component<
         { name: "Process Name" },
         { name: "Socket Type" },
       ],
+      more_popup_is_open: false,
     };
   }
 
+  killProcess(process_name: string) {
+    KillProcess(process_name)
+      .then((result) => {
+        console.log("result", result);
+      })
+      .catch((err) => {
+        console.error(`ERROR`, err);
+      });
+  }
+
   render() {
-    const { columns } = this.state;
+    const { columns, more_popup_is_open } = this.state;
     const {
       data,
       processID_visibility,
@@ -106,9 +120,20 @@ export default class CustomTable extends React.Component<
                             // open={undefined} // false // true
                           >
                             <div className="more-container-popup">
-                              <div className="popup-element kill-element">
+                              <div
+                                className="popup-element kill-element"
+                                onClick={this.killProcess.bind(
+                                  this,
+                                  String(singleData.process_name)
+                                )}
+                              >
                                 <img src={XSVG} alt="Kill process" />
-                                <span>Kill</span>
+                                <span>
+                                  Kill
+                                  <span className="bold">
+                                    {singleData.process_name}
+                                  </span>
+                                </span>
                               </div>
                             </div>
                           </Popup>

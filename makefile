@@ -3,3 +3,8 @@ go:
 
 run: 
 	wails dev
+
+build:
+	wails build
+
+.PHONY: run build go

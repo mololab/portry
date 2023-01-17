@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/mololab/portry/core"
+	"github.com/mololab/portry/killer"
 )
 
 // App struct
@@ -29,6 +30,7 @@ func (a *App) shutdown(ctx context.Context) {
 	fmt.Println("Shutdown")
 }
 
+// FetchPorts fetch ports for specific OS that app running in
 func (a *App) FetchPorts(startPort, endPort int) []core.Socket {
 	socks := core.GetSocks()
 
@@ -37,4 +39,9 @@ func (a *App) FetchPorts(startPort, endPort int) []core.Socket {
 	filteredSocks := core.FilterSocks(formatted, startPort, endPort)
 
 	return filteredSocks
+}
+
+// KillProcess kills process with process name for specific OS that app running in
+func (a *App) KillProcess(processName string) bool {
+	return killer.KillProcess(processName)
 }
