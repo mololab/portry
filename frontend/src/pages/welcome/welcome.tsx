@@ -28,7 +28,11 @@ export default class WelcomePage extends React.Component<
 
             <span className="scan-text">scan your ports easily</span>
 
-            <a href="https://github.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/mololab/portry"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 className="github-icon clickable"
                 src={GithubLogo}
