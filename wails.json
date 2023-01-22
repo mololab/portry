@@ -13,5 +13,13 @@
   "author": {
     "name": "ParvinEyvazov",
     "email": "pervin.eyvazov1999@gmail.com"
+  },
+
+  "Info": {
+    "companyName": "mololab",
+    "productName": "portry",
+    "productVersion": "0.0.1",
+    "copyright": "Copyright.........",
+    "comments": "port scanner tool"
   }
 }

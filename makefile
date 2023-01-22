@@ -7,4 +7,7 @@ run:
 build:
 	wails build
 
-.PHONY: run build go
+build-nsis:
+	wails build -nsis
+
+.PHONY: run build go build-nsis
