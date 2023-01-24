@@ -10,5 +10,5 @@
 	<key>CFBundleIconFile</key><string>iconfile</string>
 	<key>LSMinimumSystemVersion</key><string>10.13.0</string>
 	<key>NSHighResolutionCapable</key><string>true</string>
-	<key>NSHumanReadableCopyright</key><string>Copyright.........</string>
+	<key>NSHumanReadableCopyright</key><string>Copyright (c) 2023 Molo Tech Lab Organization.</string>
 </dict></plist>

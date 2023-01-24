@@ -2,24 +2,21 @@
   "name": "portry",
   "outputfilename": "portry",
   "frontend:install": "npm install",
-
   "frontend:build": "npm run build",
   "frontend:dev": "echo dev",
   "frontend:dev:build": "echo dev",
   "frontend:dev:watcher": "npm run dev",
   "frontend:dev:serverUrl": "http://localhost:5173",
   "wailsjsdir": "frontend",
-
   "author": {
     "name": "ParvinEyvazov",
     "email": "pervin.eyvazov1999@gmail.com"
   },
-
   "Info": {
-    "companyName": "mololab",
+    "companyName": "Molo Tech Lab Organization",
     "productName": "portry",
     "productVersion": "0.0.1",
-    "copyright": "Copyright.........",
+    "copyright": "Copyright (c) 2023 Molo Tech Lab Organization.",
     "comments": "port scanner tool"
   }
 }
