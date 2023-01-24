@@ -39,8 +39,8 @@ export default class CustomTable extends React.Component<
     };
   }
 
-  killProcess(process_name: string) {
-    KillProcess(process_name)
+  killProcess(process_name: string, process_id: string, port: string) {
+    KillProcess(process_name, process_id, port)
       .then((result) => {
         this.props.fetchPorts();
         console.log("result", result);
@@ -117,14 +117,16 @@ export default class CustomTable extends React.Component<
                             flowing
                             on="click"
                             position="left center"
-                            // open={undefined} // false // true
+                          // open={undefined} // false // true
                           >
                             <div className="more-container-popup">
                               <div
                                 className="popup-element kill-element"
                                 onClick={this.killProcess.bind(
                                   this,
-                                  String(singleData.process_name)
+                                  String(singleData.process_name),
+                                  String(singleData.process_id),
+                                  String(singleData.port)
                                 )}
                               >
                                 <img src={XSVG} alt="Kill process" />

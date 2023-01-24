@@ -42,6 +42,6 @@ func (a *App) FetchPorts(startPort, endPort int) []core.Socket {
 }
 
 // KillProcess kills process with process name for specific OS that app running in
-func (a *App) KillProcess(processName string) bool {
-	return killer.KillProcess(processName)
+func (a *App) KillProcess(processName, processID, port string) bool {
+	return killer.KillProcess(processName, processID, port)
 }

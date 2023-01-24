@@ -4,8 +4,8 @@ import (
 	"os/exec"
 )
 
-func osKillProcess(name string) error {
-	cmd := exec.Command("killall", "-KILL", name)
+func osKillProcess(processName, processID, port string) error {
+	cmd := exec.Command("kill", "-9", processID)
 
 	return cmd.Run()
 }

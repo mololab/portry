@@ -4,8 +4,8 @@ import (
 	"os/exec"
 )
 
-func osKillProcess(name string) error {
-	cmd := exec.Command("taskkill", "/im", name, "/f")
+func osKillProcess(processName, processID, port string) error {
+	cmd := exec.Command("taskkill", "/im", processName, "/f")
 
 	return cmd.Run()
 }
