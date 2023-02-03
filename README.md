@@ -87,4 +87,4 @@ The idea for Portry came from my personal frustration with the current state of 
 
 ## License
 
-**_@mololab/portry** will be available under the [MIT license](LICENSE).
+**_@mololab/portry_** will be available under the [MIT license](LICENSE).
