@@ -84,3 +84,7 @@ Search + Filter + Live Monitoring
 # Why?
 
 The idea for Portry came from my personal frustration with the current state of port scanning tools. I wanted to create a tool that was easy to use, had all the necessary features, and was accessible to people with a wide range of technical backgrounds. That's why I started the Portry project, to provide a simple and effective solution for anyone who needs to monitor their ports. With Portry, you'll have all the features you need to quickly and easily monitor your ports, without having to navigate a confusing interface or deal with any unnecessary complexities. I hope Portry will be a valuable resource for you and your network.
+
+## License
+
+**_@mololab/portry** will be available under the [MIT license](LICENSE).

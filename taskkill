@@ -1,3 +1,0 @@
-taskkill /F /PID <PID>
-
-taskkill /IM portry-dev.exe /F
