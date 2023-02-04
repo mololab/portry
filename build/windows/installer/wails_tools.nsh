@@ -8,7 +8,7 @@
     !define INFO_PROJECTNAME "portry"
 !endif
 !ifndef INFO_COMPANYNAME
-    !define INFO_COMPANYNAME "mololab"
+    !define INFO_COMPANYNAME "Molo Tech Lab Organization"
 !endif
 !ifndef INFO_PRODUCTNAME
     !define INFO_PRODUCTNAME "portry"
@@ -17,7 +17,7 @@
     !define INFO_PRODUCTVERSION "0.0.1"
 !endif
 !ifndef INFO_COPYRIGHT
-    !define INFO_COPYRIGHT "Copyright........."
+    !define INFO_COPYRIGHT "Copyright (c) 2023 Molo Tech Lab Organization."
 !endif
 !ifndef PRODUCT_EXECUTABLE
     !define PRODUCT_EXECUTABLE "${INFO_PROJECTNAME}.exe"
