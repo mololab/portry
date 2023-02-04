@@ -59,7 +59,7 @@ Effortlessly search and find the information you need with our search feature. Q
 
 - Kill Process 🔪
 
-Easily kill any Process that running on any port. That would help you to keep your ports safe and controlled.
+Take control of your ports with the Kill Process feature. Easily terminate any process running on a specific port, giving you the ability to quickly address any issues and maintain the stability of your network.
 
 # UI
 
